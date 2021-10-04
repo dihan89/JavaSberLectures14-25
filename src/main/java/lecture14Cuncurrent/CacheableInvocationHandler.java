@@ -66,17 +66,18 @@ public class CacheableInvocationHandler implements InvocationHandler {
         String fileName = Integer.toString(arg.hashCode());
         File fileWithResult = new File(directory,
                 fileName + (cacheableAnnotation.zip() ? ".zip" : ".ser"));
+        String fileNameFull = String.format("%s%s", directory.getName(), fileName);
         synchronized (mutexes) {
-            if (mutexes.containsKey(fileName)) {
-                synchronized (mutexes.get(fileName).mutex){
-                    mutexes.get(fileName).count++;
+            if (mutexes.containsKey(fileNameFull)) {
+                synchronized (mutexes.get(fileNameFull).mutex){
+                    mutexes.get(fileNameFull).count++;
                 }
             } else {
-                mutexes.put(fileName, new Pair(new Object(), 1));
+                mutexes.put(fileNameFull, new Pair(new Object(), 1));
             }
         }
 
-        synchronized (mutexes.get(fileName).mutex) {
+        synchronized (mutexes.get(fileNameFull).mutex) {
 
             try {
                 if (fileWithResult.exists()) {
@@ -133,8 +134,8 @@ public class CacheableInvocationHandler implements InvocationHandler {
                             System.out.println("Can not write object! " + exc.getMessage());
                         }
             } finally {
-                mutexes.get(fileName).count--;
-                emptyMutexes.add(fileName);
+                mutexes.get(fileNameFull).count--;
+                emptyMutexes.add(fileNameFull);
             }
 
         }

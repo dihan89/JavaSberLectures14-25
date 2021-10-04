@@ -25,10 +25,10 @@ public class Lect14TestThreads {
         executorService.submit(()->{
             System.out.println("Thread" + Thread.currentThread().getName());
            // System.out.println("testRAM");
-            for (int i = 0; i < 5000; ++i)
+            for (int i = 0; i < 500; ++i)
                 worker.createCube(i);
             try {
-                Thread.sleep(500);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -36,10 +36,10 @@ public class Lect14TestThreads {
         executorService.submit(()->{
             System.out.println("Thread" + Thread.currentThread().getName());
             //System.out.println("testRAM");
-            for (int i = 10; i < 5687; ++i)
+            for (int i = 10; i < 568; ++i)
                 worker.createCube(i);
             try {
-                Thread.sleep(700);
+                Thread.sleep(70);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -49,7 +49,7 @@ public class Lect14TestThreads {
         executorService.submit(()->{
             System.out.println("Thread" + Thread.currentThread().getName());
            // System.out.println("testRAM");
-            for (int i = 30; i < 7999; ++i)
+            for (int i = 300; i < 799; ++i)
                 worker.createCube(i);
 
             try {
@@ -63,17 +63,17 @@ public class Lect14TestThreads {
         executorService.submit(()->{
             System.out.println("Thread" + Thread.currentThread().getName());
             //System.out.println("testRAM");
-            for (int i = 6235; i < 10000; ++i)
+            for (int i = 623; i < 1000; ++i)
                 worker.createCube(i);
             try {
-                Thread.sleep(200);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
 
        try {
-            executorService.awaitTermination(15_000, TimeUnit.MILLISECONDS);
+            executorService.awaitTermination(10_000, TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
